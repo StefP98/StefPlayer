@@ -1,0 +1,343 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+   <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/Dogfalo/materialize/master/dist/css/materialize.min.css' />
+   <link rel="stylesheet" href="css/style.css" />
+   <!--Let browser know website is optimized for mobile-->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+   <link rel="shortcut icon" href="logo.tif">
+   <style>
+      /* label color */
+      
+      .input-field label {
+         color: #000;
+      }
+      /* label focus color */
+      
+      .input-field input[type=text]:focus + label {
+         color: #000;
+      }
+      /* label underline focus color */
+      
+      .input-field input[type=text]:focus {
+         border-bottom: 1px solid #000;
+         box-shadow: 0 1px 0 0 #000;
+      }
+      /* valid color */
+      
+      .input-field input[type=text].valid {
+         border-bottom: 1px solid #000;
+         box-shadow: 0 1px 0 0 #000;
+      }
+      /* invalid color */
+      
+      .input-field input[type=text].invalid {
+         border-bottom: 1px solid #000;
+         box-shadow: 0 1px 0 0 #000;
+      }
+      /* icon prefix focus color */
+      
+      .input-field .prefix.active {
+         color: teal;
+      }
+      i.activered {
+         color: red;
+      }
+      i.inactive {
+         color: #000;
+      }
+      .tabs .tab a,
+      .tabs .tab a:hover {
+         color: #29b6f6
+         /*!important*/
+         
+         ;
+         border-color: #29b6f6;
+      }
+      .tabs .indicator {
+         background-color: #29b6f6;
+      }
+      .tabs .tab.disabled a {
+         color: #72cff9;
+         cursor: default;
+      }
+      body {
+         display: flex;
+         min-height: 100vh;
+         flex-direction: column;
+      }
+      ::-webkit-scrollbar {
+         display: none;
+      }
+      main {
+         flex: 1 0 auto;
+      }
+      .Site {
+         display: flex;
+         min-height: 100vh;
+         flex-direction: column;
+      }
+      .Site-content {
+         flex: 1;
+      }
+      input[type="checkbox"] + label {
+         color: #212121;
+      }
+	  .playlistElement {
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+	  }
+
+   </style>
+</head>
+<title>Stef player</title>
+
+<body>
+
+   <header>
+      <div class="navbar-fixed">
+         <nav>
+            <div class="nav-wrapper orange">
+               <a href="#" class="center brand-logo hide-on-small-only"><img src="icon/logotextport.png" height="64"></img>
+               </a>
+               <a href="#" class="center brand-logo hide-on-med-and-up"><img src="icon/logotextport.png" height="56"></img>
+               </a>
+               <ul class="right hide-on-med-and-down">
+                  <li><a href="http://google.ro" class="waves-effect waves-dark" target="_blank">Google</a>
+                  </li>
+                  <!--li><a href="Buteni.html" class="waves-effect waves-dark" target="_blank">Buteni 2014</a></li-->
+               </ul>
+               <ul class="side-nav light-blue lighten-1" id="slide-out">
+
+                  <!--li><a href="Buteni.html" class="waves-effect waves-light" target="_blank">Buteni 2014</a></li-->
+               </ul>
+               <a href="#" data-activates="slide-out" class="button-collapse hide-on-small-only"><img src="icon/logo.png" height="64" width="64"></img>
+               </a>
+               <a href="#" data-activates="slide-out" class="button-collapse hide-on-med-and-up"><img src="icon/logo.png" height="56" width="56"></img>
+               </a>
+            </div>
+         </nav>
+      </div>
+      <br>
+   </header>
+   <main class="Site-content">
+      <audio id="myTune0">
+         <source src="audio/Are You With Me.mp3">
+      </audio>
+
+      <audio id="myTune1">
+         <source src="audio/I see fire.mp3">
+      </audio>
+      <div class="container">
+         <div class="row">
+            <div class="col s12">
+               <ul class="tabs">
+                  <li class="tab col s2"><a href="#tabAudio">Audio</a>
+                  </li>
+                  <li class="tab col s2"><a href="#tabVersuri" onclick="openPlaylist()">Playlist</a>
+                  </li>
+               </ul>
+            </div>
+            <div id="tabAudio" class="col s12">
+               <br>
+               <form action="#" id="form">
+                  <div class="file-field input-field">
+                     <div class="btn">
+                        <span>File</span>
+                        <input type="file" id="file">
+                     </div>
+                     <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                     </div>
+                  </div>
+               </form>
+               <ul class="collapsible popout" data-collapsible="accordion" id="myUl">
+                  <li>
+
+                     <div class="collapsible-header">
+                        <span id="title0">Are You With Me</span>
+                        <input type="checkbox" id="check0" />
+						<label for="check0" style="float:right;  margin-top: 10px;"></label>
+                     </div>
+                     <div class="collapsible-body">
+                        <div class="container">
+                           <br>
+                           <div align="center">
+                              <a class="btn-floating waves-effect waves-light yellow" onclick="rev0()"><i class="mdi-av-fast-rewind"></i>
+                              </a>&nbsp;
+                              <a class="large btn-floating btn-large  waves-effect waves-circle waves-light red" id="playpausebtn0" onclick="aud_play_pause0()">
+                                 <i class="mdi-av-play-arrow"></i>
+                              </a>&nbsp;
+                              <a class="btn-floating waves-effect waves-light yellow" onclick="for0()"><i class="mdi-av-fast-forward"></i>
+                              </a>
+                           </div>
+                           <br>
+                           <div class="progress">
+                              <div id="prog0" class="determinate" style="width:0%"></div>
+                           </div>
+                           <form action="#">
+                              <div align="left" class="col s6"><i class="small mdi-av-volume-mute" onclick="mute0();changevolume0(0)" id="vlm0"></i>
+                              </div>
+                              <div align="right" class="col s6"><i class="small mdi-av-volume-down" onclick="loud0();changevolume0(1)" id="vld0"></i>
+                              </div>
+                              <input type="range" id="range0" min="0" max="1" step="0.001" onmousemove="changevolume0(this.value)" />
+                           </form>
+                           <div class="row">
+                              <div class="col s12">
+                                 <div class="card-panel">
+                                    <span class="teal-text">
+          							</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <br>
+                        </div>
+                     </div>
+                  </li>
+                  <li>
+                     <div class="collapsible-header">
+						<span id="title1">I See Fire</span>
+						<input type="checkbox" id="check1" />
+						<label for="check1" style="float:right;  margin-top: 10px;"></label>
+					</div>
+                     <div class="collapsible-body">
+                        <div class="container">
+                           <br>
+                           <div align="center">
+                              <a class="btn-floating waves-effect waves-circle waves-light yellow" onclick="rev1()"><i class="mdi-av-fast-rewind"></i>
+                              </a>&nbsp;
+                              <a class="btn-floating btn-large waves-effect waves-circle waves-light red" id="playpausebtn1" onclick="aud_play_pause1()">
+                                 <i class="mdi-av-play-arrow"></i>
+                              </a>&nbsp;
+                              <a class="btn-floating waves-effect waves-circle waves-light yellow" onclick="for1()"><i class="mdi-av-fast-forward"></i>
+                              </a>
+                           </div>
+                           <br>
+                           <div class="progress">
+                              <div id="prog1" class="determinate" style="width:0%"></div>
+                           </div>
+                           <form action="#">
+                              <div align="left" class="col s6"><i class="small mdi-av-volume-mute" onclick="mute1();changevolume1(0)" id="vlm1"></i>
+                              </div>
+                              <div align="right" class="col s6"><i class="small mdi-av-volume-down" onclick="loud1();changevolume1(1)" id="vld1"></i>
+                              </div>
+                              <input type="range" id="range1" min="0" max="1" step="0.001" onmousemove="changevolume1(this.value)" />
+                           </form>
+                           <div class="row">
+                              <div class="col s12">
+                                 <div class="card-panel">
+                                    <span class="teal-text">
+          							</span>
+                                 </div>
+                              </div>
+                           </div>
+                           <br>
+                        </div>
+                     </div>
+                  </li>
+               </ul>
+               <br>
+            </div>
+            <div id="tabVersuri" class="col s12">
+               <br>
+               <!--<li>
+				<div class="collapsible-header"></div>
+				<div class="collapsible-body"><p>
+	
+				</p></div></li>-->
+            </div>
+         </div>
+
+      </div>
+   </main>
+   <footer class="page-footer orange">
+      <div class="container">
+         <div class="row">
+            <div class="col l6 s12">
+               <a href="#" class="center brand-logo"><img src="icon/logotextport.png" width="100%"></img>
+               </a>
+            </div>
+            <div class="col l4 offset-l2 s12">
+               <h5 class="white-text">Links</h5>
+               <ul>
+
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="footer-copyright">
+         <div class="container">
+            © 2017 Copyright Stef
+         </div>
+      </div>
+   </footer>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+   <script type="text/javascript" src="js/materialize.min.js"></script>
+   <script type="text/javascript" src="js/audio.js"></script>
+   <script type="text/javascript">
+      $(document)
+         .ready(function()
+         {
+            $(".tooltipped")
+               .tooltip(
+               {
+                  delay: 50
+               });
+         });
+      $(document)
+         .ready(function()
+         {
+            $(".button-collapse")
+               .sideNav();
+         });
+      $('.dropdown-button')
+         .dropdown(
+         {
+            inDuration: 300,
+            outDuration: 225,
+            constrain_width: false, // Does not change width of dropdown to that of the activator
+            hover: true, // Activate on hover
+            gutter: 0, // Spacing from edge
+            belowOrigin: false // Displays dropdown below the button
+         });
+      $(document)
+         .ready(function()
+         {
+            $('.materialboxed')
+               .materialbox();
+         });
+      $(document)
+         .ready(function()
+         {
+            $('.collapsible')
+               .collapsible(
+               {
+                  accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+               });
+         });
+      $(document)
+         .ready(function()
+         {
+            $('ul.tabs')
+               .tabs();
+         });
+      $(document)
+         .ready(function()
+         {
+            $('.slider')
+               .slider(
+               {
+                  full_width: true,
+                  height: 500,
+                  interval: 3500
+               });
+         });
+
+   </script>
+</body>
+
+</html>
