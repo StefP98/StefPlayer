@@ -211,7 +211,7 @@ background-color: transparent;
 }
    </style>
 </head>
-<title>Stef player</title>
+<title>TEST</title>
 
 <body>
    <header>
@@ -259,155 +259,30 @@ background-color: transparent;
          <source src="audio/I see fire.mp3">
       </audio>
       <div class="container">
-         <div class="row">
-            <div class="col s12">
-               <ul class="tabs">
-                  <li class="tab col s2"><a href="#tabAudio">Audio</a>
-                  </li>
-                  <li class="tab col s2"><a href="#tabVersuri" onclick="openPlaylist()">Playlist</a>
-                  </li>
-               </ul>
-            </div>
-            <div id="tabAudio" class="col s12">
-               <br>
-               <form action="#" id="form">
-                  <div class="file-field input-field">
-                     <div class="btn">
-                        <span>File</span>
-                        <input type="file" id="file">
-                     </div>
-                     <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
-                     </div>
-                  </div>
-               </form>
-               <ul class="collapsible popout" data-collapsible="accordion" id="myUl">
-                  <li>
-
-                     <div class="collapsible-header">
-                        <span id="title0">Are You With Me</span>
-                        <input type="checkbox" id="check0" />
-						<label for="check0" style="float:right;  margin-top: 10px;"></label>
-                     </div>
-                     <div class="collapsible-body">
-                        <div class="container">
-                           <br>
-                           <div align="center">
-                              <a class="btn-floating waves-effect waves-light yellow" onclick="rev0()"><i class="mdi-av-fast-rewind"></i>
-                              </a>&nbsp;
-                              <a class="large btn-floating btn-large  waves-effect waves-circle waves-light red" id="playpausebtn0" onclick="aud_play_pause0()">
-                                 <i class="mdi-av-play-arrow"></i>
-                              </a>&nbsp;
-                              <a class="btn-floating waves-effect waves-light yellow" onclick="for0()"><i class="mdi-av-fast-forward"></i>
-                              </a>
-                           </div>
-                           <br>
-                           <div class="progress">
-                              <div id="prog0" class="determinate" style="width:0%"></div>
-                           </div>
-                           <form action="#">
-                              <div align="left" class="col s6"><i class="small mdi-av-volume-mute" onclick="mute0();changevolume0(0)" id="vlm0"></i>
-                              </div>
-                              <div align="right" class="col s6"><i class="small mdi-av-volume-down" onclick="loud0();changevolume0(1)" id="vld0"></i>
-                              </div>
-                              <input type="range" id="range0" min="0" max="1" step="0.001" onmousemove="changevolume0(this.value)" />
-                           </form>
-                           <div class="row">
-                              <form class="col s12" id="oldvers0">
-								<div class="col s12"><div class="card-panel">
-								<span class="teal-text">ARE YOU WITH ME<br><br>
-I wanna dance by water 'neath the Mexican sky<br>
-Drink some Margaritas by a string of blue lights<br>
-Listen to the Mariachi play at midnight<br>
-Are you with me, are you with me?<br>
-<br>
-Are you with me?<br>
-<br>
-Are you with me?<br>
-<br>
-Drink some Margaritas by a string of blue lights<br>
-Listen to the Mariachi play at midnight<br>
-Are you with me, are you with me?<br>
-<br>
-I wanna dance by water 'neath the Mexican sky<br>
-Drink some Margaritas by a string of blue lights<br>
-Listen to the Mariachi play at midnight<br>
-Are you with me, are you with me?<br>
-<br>
-Are you with me?<br>
-<br>
-I wanna dance by water 'neath the Mexican sky<br>
-Drink some Margaritas by a string of blue lights<br>
-Listen to the Mariachi play at midnight<br>
-Are you with me, are you with me?<br>
-<br>
-I wanna dance by water 'neath the Mexican sky<br>
-Drink some Margaritas by a string of blue lights<br>
-Listen to the Mariachi play at midnight<br>
-Are you with me, are you with me?
-</span>
-</div>
-</div>
-							</form>
-                           </div>
-                           <br>
-                        </div>
-                     </div>
-                  </li>
-                  <li>
-                     <div class="collapsible-header">
-						<span id="title1">I See Fire</span>
-						<input type="checkbox" id="check1" />
-						<label for="check1" style="float:right;  margin-top: 10px;"></label>
-					</div>
-                     <div class="collapsible-body">
-                        <div class="container">
-                           <br>
-                           <div align="center">
-                              <a class="btn-floating waves-effect waves-circle waves-light yellow" onclick="rev1()"><i class="mdi-av-fast-rewind"></i>
-                              </a>&nbsp;
-                              <a class="btn-floating btn-large waves-effect waves-circle waves-light red" id="playpausebtn1" onclick="aud_play_pause1()">
-                                 <i class="mdi-av-play-arrow"></i>
-                              </a>&nbsp;
-                              <a class="btn-floating waves-effect waves-circle waves-light yellow" onclick="for1()"><i class="mdi-av-fast-forward"></i>
-                              </a>
-                           </div>
-                           <br>
-                           <div class="progress">
-                              <div id="prog1" class="determinate" style="width:0%"></div>
-                           </div>
-                           <form action="#">
-                              <div align="left" class="col s6"><i class="small mdi-av-volume-mute" onclick="mute1();changevolume1(0)" id="vlm1"></i>
-                              </div>
-                              <div align="right" class="col s6"><i class="small mdi-av-volume-down" onclick="loud1();changevolume1(1)" id="vld1"></i>
-                              </div>
-                              <input type="range" id="range1" min="0" max="1" step="0.001" onmousemove="changevolume1(this.value)" />
-                           </form>
-                           <div class="row">
-                              <div class="col s12">
-                                 <div class="card-panel">
-                                    <span class="teal-text">
-          							</span>
-                                 </div>
-                              </div>
-                           </div>
-                           <br>
-                        </div>
-                     </div>
-                  </li>
-               </ul>
-               <br>
-            </div>
-            <div id="tabVersuri" class="col s12">
-               <br>
-               <!--<li>
-				<div class="collapsible-header"></div>
-				<div class="collapsible-body"><p>
-	
-				</p></div></li>-->
-            </div>
-         </div>
-
+	  <div class="row">
+    <form class="col s12" id="oldvers0">
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea0" class="materialize-textarea" id="vers0"></textarea>
+          <label for="textarea0">Introdueţi versurile</label>
+        </div>
+      </div>
+	  <a class="btn waves-effect waves-light" onclick="ver0()">Submit
+    <i class="material-icons right">send</i>
+  </a>
+    </form>
+	<form class="col s12" id="oldvers1">
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea" id="vers1"></textarea>
+          <label for="textarea1">Textarea</label>
+        </div>
+      </div>
+	  <a class="btn waves-effect waves-light">Submit
+    <i class="material-icons right">send</i>
+  </a>
+    </form>
+  </div>
       </div>
    </main>
    <footer class="page-footer orange">

@@ -9,8 +9,8 @@ document.getElementById("file").onchange = function() {
 
 
 var openPlaylist = function () {
-	console.log(123);
 	var playlistElements = "";
+	$("#tabVersuri").html( playlistElements );
 	for ( var i = 0; i < songId; i++ ) {
 		var checkBool = document.getElementById('check'+i).checked;
 		if ( checkBool ) {
@@ -53,13 +53,17 @@ var getHtmlElement = function (id) {
 	  <div align="right" class="col s6"><i class="small mdi-av-volume-down" onclick="loud${id}();changevolume${id}(1)" id="vld${id}"></i></div>
 	  <input type="range" id="range${id}" min="0" max="1" step="0.001" onmousemove="changevolume${id}(this.value)"/>
   </form>
-            <div class="row">
-      <div class="col s12">
-        <div class="card-panel">
-          <span class="teal-text">
-          </span>
+      <div class="row">
+      <form class="col s12" id="oldvers${id}">
+		<div class="row">
+		<textarea id="textarea${id}" class="materialize-textarea" id="vers${id}"></textarea>
+		<label for="textarea${id}">Introduceţi versurile</label>
+		</div>
+		<a class="btn waves-effect waves-light" onclick="ver${id}()">Submit
+		<i class="material-icons right">send</i>
+		</a>
+		</form>
         </div>
-      </div>
     </div><br></div></div>
     </li>`;
 	$("#myUl").append(html);
