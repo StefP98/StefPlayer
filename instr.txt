@@ -1,0 +1,6 @@
+git pull
+
+
+git add .
+git commit -m "mesaju tau de commit"
+git push origin master

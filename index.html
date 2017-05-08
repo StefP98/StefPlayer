@@ -2,14 +2,103 @@
 <html>
 
 <head>
-   <meta charset="UTF-8">
-   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-   <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/Dogfalo/materialize/master/dist/css/materialize.min.css' />
+   <!--meta charset="UTF-8"-->
+   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+   <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
    <link rel="stylesheet" href="css/style.css" />
-   <!--Let browser know website is optimized for mobile-->
    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-   <link rel="shortcut icon" href="logo.tif">
    <style>
+   .side-nav .userView {
+  overflow: hidden;
+  position: relative;
+  padding: 32px 32px 0;
+  margin-bottom: 8px;
+}
+
+.side-nav .userView a {
+  height: auto;
+  padding: 0;
+}
+
+/*.side-nav .userView a:hover {
+  background-color: transparent;
+}*/
+
+.side-nav .userView .background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.side-nav .userView .circle, .side-nav .userView .name, .side-nav .userView .email {
+  display: block;
+}
+
+.side-nav .userView .circle {
+  height: 64px;
+  width: 64px;
+}
+
+.side-nav .userView .name,
+.side-nav .userView .email {
+  font-weight: 14px;
+  line-height: 24px;
+}
+
+.side-nav .userView .name {
+  margin-top: 16px;
+  font-weight: 500;
+}
+
+.side-nav .userView .email {
+  padding-bottom: 16px;
+  font-weight: 400;
+}
+@media only screen and (max-width: 992px) {
+  .side-nav.fixed {
+    -webkit-transform: translateX(-105%);
+            transform: translateX(-105%);
+  }
+  .side-nav.fixed.right-aligned {
+    -webkit-transform: translateX(105%);
+            transform: translateX(105%);
+  }
+  .side-nav a {
+    padding: 0 16px;
+  }
+  .side-nav .userView {
+    padding: 16px 16px 0;
+  }
+}
+.side-nav li:hover{
+background-color: transparent;
+}
+   .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.side-nav a:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
+.side-nav a {
+  color: rgba(0, 0, 0, 0.87);
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 32px;
+}
       /* label color */
       
       .input-field label {
@@ -91,13 +180,28 @@
 		height: 30px;
 		line-height: 30px;
 	  }
-
+.ico{
+    width:100px;
+    display:block;
+    height:20px;
+    color:white;
+    text-decoration:none;
+    padding-left:20px;
+}
+.ico:before{
+    content: '';
+    background:url('images/facebook-box.png');
+    background-size:cover;
+        position:absolute;
+    width:20px;
+    height:20px;
+    margin-left:20px;
+}
    </style>
 </head>
 <title>Stef player</title>
 
 <body>
-
    <header>
       <div class="navbar-fixed">
          <nav>
@@ -106,25 +210,35 @@
                </a>
                <a href="#" class="center brand-logo hide-on-med-and-up"><img src="icon/logotextport.png" height="56"></img>
                </a>
+               <ul class="left hide-on-med-and-down">
+					<li><a class = "waves-effect waves-dark" href="https://www.facebook.com/stef.pop.98" target="_blank">Facebook</a></li>
+					<li><a class = "waves-effect waves-dark" href="https://plus.google.com/111608090633945120306?hl=ro" target="_blank">Google+</a></li>
+               </ul>
                <ul class="right hide-on-med-and-down">
-                  <li><a href="http://google.ro" class="waves-effect waves-dark" target="_blank">Google</a>
-                  </li>
-                  <!--li><a href="Buteni.html" class="waves-effect waves-dark" target="_blank">Buteni 2014</a></li-->
+					<li><a class = "waves-effect waves-dark" href="https://github.com/StefP98/StefPlayer" target="_blank">GitHub</a></li>
                </ul>
-               <ul class="side-nav light-blue lighten-1" id="slide-out">
-
-                  <!--li><a href="Buteni.html" class="waves-effect waves-light" target="_blank">Buteni 2014</a></li-->
-               </ul>
-               <a href="#" data-activates="slide-out" class="button-collapse hide-on-small-only"><img src="icon/logo.png" height="64" width="64"></img>
-               </a>
-               <a href="#" data-activates="slide-out" class="button-collapse hide-on-med-and-up"><img src="icon/logo.png" height="56" width="56"></img>
-               </a>
+				<a data-activates="slide-out" class="button-collapse hide-on-small-only"><img src="icon/logo.png" height="64" width="64"></img></a>
+				<a data-activates="slide-out" class="button-collapse hide-on-med-only"><img src="icon/logo.png" height="56" width="56"></img></a>
             </div>
          </nav>
       </div>
       <br>
    </header>
+   
    <main class="Site-content">
+   <ul id="slide-out" class="side-nav">
+    <li style="padding: 0 0px;"><div class="userView">
+      <img class="background" src="images/office.jpg">
+      <a href="#!user"><img class="circle" src="images/logo.png"></a>
+      <a href="#!name"><span class="white-text name">Stefan Pop</span></a>
+      <a href="#!email"><span class="white-text email">stefan.popd@gmail.com</span></a>
+    </div></li>
+    <li><a class = "waves-effect" href="https://www.facebook.com/stef.pop.98" target="_blank">Facebook</a></li>
+    <li><a class = "waves-effect" href="https://plus.google.com/111608090633945120306?hl=ro" target="_blank">Google+</a></li>
+    <li><div class="divider"></div></li>
+	<li><a class="subheader">Project</a></li>
+    <li><a class = "waves-effect" href="https://github.com/StefP98/StefPlayer" target="_blank">GitHub</a></li>
+  </ul>
       <audio id="myTune0">
          <source src="audio/Are You With Me.mp3">
       </audio>
@@ -264,7 +378,10 @@
             <div class="col l4 offset-l2 s12">
                <h5 class="white-text">Links</h5>
                <ul>
-
+					<li><a class = "grey-text text-lighten-3" href="https://www.facebook.com/stef.pop.98" target="_blank">Facebook</a></li>
+					<li><a class = "grey-text text-lighten-3" href="https://plus.google.com/111608090633945120306?hl=ro" target="_blank">Google+</a></li>
+					<li><a class = "grey-text text-lighten-3" href="https://github.com/StefP98/StefPlayer" target="_blank">GitHub</a></li>
+					
                </ul>
             </div>
          </div>
@@ -279,6 +396,10 @@
    <script type="text/javascript" src="js/materialize.min.js"></script>
    <script type="text/javascript" src="js/audio.js"></script>
    <script type="text/javascript">
+  $(".button-collapse").sideNav();
+  </script>
+   <script type="text/javascript">
+   
       $(document)
          .ready(function()
          {
@@ -287,12 +408,6 @@
                {
                   delay: 50
                });
-         });
-      $(document)
-         .ready(function()
-         {
-            $(".button-collapse")
-               .sideNav();
          });
       $('.dropdown-button')
          .dropdown(
