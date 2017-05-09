@@ -1,23 +1,42 @@
 'use strict';
 var songId = 2;
 var foo = null;
+var songList = [];
+var currAud = false;
+var currId = false;
 document.getElementById("file").onchange = function() {
-    getHtmlElement(songId);
-	songId++;
-	foo = document.getElementById("file").value;
+	var fileSrc = document.getElementById("file").value;
+	if (fileSrc) {
+		getHtmlElement(songId);
+		songId++;
+		foo = document.getElementById("file").value;
+	}
 };
 
 
 var openPlaylist = function () {
 	var playlistElements = "";
-	$("#tabVersuri").html( playlistElements );
+	songList = [];
+	if( currAud ) { 
+		if ( !currAud.paused ) {
+			$("#playpausebtnList i").toggleClass("mdi-av-play-arrow mdi-av-pause");
+		}
+		document.getElementById( "progList" ).style.width = "0";
+		currAud.pause();
+		currAud.currentTime = 0;
+		currAud.ontimeupdate = null;
+		currAud = false;
+		currId = false;
+	}
+	$("#playlistUl").html( playlistElements );
 	for ( var i = 0; i < songId; i++ ) {
 		var checkBool = document.getElementById('check'+i).checked;
 		if ( checkBool ) {
+			songList.push( i );
 			var title = document.getElementById("title"+i).innerHTML;
-			var playlistElementHtml = `<div class="playlistElement" id="el${i}">${title}</div>`;
+			var playlistElementHtml = `<a href="#" class="collection-item" id="el${i}">${title}</a>`;
 			playlistElements += playlistElementHtml;
-			$("#tabVersuri").html( playlistElements );
+			$("#playlistUl").html( playlistElements );
 		}
 	}
 }
@@ -41,7 +60,7 @@ var getHtmlElement = function (id) {
       <div class="collapsible-body"><div class="container"><br>
 	  <div align="center">
 	  <a class="btn-floating waves-effect waves-circle waves-light yellow" onclick="window.rev(${id})"><i class="mdi-av-fast-rewind"></i></a>&nbsp;
-	  <a class="large btn-floating btn-large waves-effect waves-circle waves-light red" id="playpausebtn${id}" onclick="aud_play_pause${id}()">
+	  <a class="large btn-floating btn-large waves-effect waves-circle waves-light red tooltipped" data-position="top" data-delay="10" data-tooltip="Click to play/pause" id="playpausebtn${id}" onclick="aud_play_pause${id}()">
   <i class="mdi-av-play-arrow"></i></a>&nbsp;
   <a class="btn-floating waves-effect waves-circle waves-light yellow" onclick="window.forw(${id})"><i class="mdi-av-fast-forward"></i></a>
   </div><br>
@@ -53,17 +72,19 @@ var getHtmlElement = function (id) {
 	  <div align="right" class="col s6"><i class="small mdi-av-volume-down" onclick="loud${id}();changevolume${id}(1)" id="vld${id}"></i></div>
 	  <input type="range" id="range${id}" min="0" max="1" step="0.001" onmousemove="changevolume${id}(this.value)"/>
   </form>
-      <div class="row">
-      <form class="col s12" id="oldvers${id}">
+    <div class="row">
+    <form class="col s12" id="oldvers${id}">
 		<div class="row">
-		<textarea id="textarea${id}" class="materialize-textarea" id="vers${id}"></textarea>
-		<label for="textarea${id}">Introduceţi versurile</label>
+			<div class="input-field col s12">
+				<textarea id="textarea${id}" class="materialize-textarea" id="vers${id}"></textarea>
+				<label for="textarea1">Introduceţi versurile</label>
+			</div>
 		</div>
-		<a class="btn waves-effect waves-light" onclick="ver${id}()">Submit
-		<i class="material-icons right">send</i>
-		</a>
-		</form>
-        </div>
+	<a class="btn waves-effect waves-light" onclick="ver${id}()">Submit
+	<i class="material-icons right">send</i>
+	</a>
+	</form>
+    </div>
     </div><br></div></div>
     </li>`;
 	$("#myUl").append(html);
@@ -82,7 +103,103 @@ var getHtmlElement = function (id) {
 	}
 	}
 	aud.ontimeupdate = leg;
+	$(document)
+         .ready(function()
+         {
+            $(".tooltipped")
+               .tooltip(
+               {
+                  delay: 50
+               });
+         });
 }
+
+//playlist
+	
+function changeTrack () {
+	var vol;
+	var lastId = currId;
+	if ( currId === false || currId === songList.length - 1 ) {
+		if ( currAud ) {
+			currAud.ontimeupdate = null;
+			vol = currAud.volume;
+		}
+		vol = 0.5;
+		currId = 0;
+	} else if ( currId < songList.length - 1 ) {
+		currAud.ontimeupdate = null;
+		vol = currAud.volume;
+		currId++;
+	}
+	currAud = document.getElementById( "myTune" + songList[ currId ] );
+	currAud.ontimeupdate = legList;
+	currAud.volume = vol;
+	if ( lastId !== false ) {
+		currAud.play();
+	}
+}
+
+function aud_play_pauseList(){
+	
+	if( currId === false ) {
+		changeTrack();
+	}
+	if ( currAud.paused ) {
+		Materialize.toast('Play', 1000, 'rounded');
+		currAud.play();
+	} else {
+		Materialize.toast('Pause', 1000, 'rounded');
+		currAud.pause();
+	}
+	$("#playpausebtnList i").toggleClass("mdi-av-play-arrow mdi-av-pause");
+}
+function revList() {
+	if(currAud.currentTime<=1)
+	{
+		currAud.currentTime=0;
+	}
+	else
+	{
+		currAud.currentTime--;
+	}
+}
+function forList() {
+	if(currAud.currentTime>=currAud.duration-1)
+	{
+		currAud.currentTime=currAud.duration;
+	}
+	else
+	{
+		currAud.currentTime++;
+	}
+}
+function legList() {
+    var cur = currAud.currentTime;
+	var dur = currAud.duration;
+	var tot = cur / dur * 100;
+	var t = tot + '%';
+    document.getElementById( "progList" ).style.width = t;
+	currAud.onended = function () {
+		changeTrack();
+		Materialize.toast( 'Next Track', 1000, 'rounded' )
+	}
+}
+
+function changevolumeList( amount ) {
+    currAud.volume = amount;
+}
+
+function muteList(){
+	document.getElementById("rangeList").value = "0";
+	currAud.volume = 0;
+}
+
+function loudList(){
+	document.getElementById("rangeList").value = "1";
+	currAud.volume = 1;
+}
+
+// rest
 
 
 function aud_play_pause0(){
@@ -288,9 +405,9 @@ function aud_play_pause4(){
   if ( myAudio4.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio4.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio4.pause();
+	Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn4 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -314,9 +431,9 @@ function aud_play_pause5(){
   if ( myAudio5.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio5.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio5.pause();
+	Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn5 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -340,9 +457,9 @@ function aud_play_pause6(){
   if ( myAudio6.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio6.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio6.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn6 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -365,9 +482,9 @@ function aud_play_pause7(){
   if ( myAudio7.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio7.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio7.pause();
+	Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn7 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -390,9 +507,9 @@ function aud_play_pause8(){
   if ( myAudio8.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio8.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio8.pause();
+	Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn8 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -416,9 +533,9 @@ function aud_play_pause(id){
   if ( myAudio.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn9 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -429,9 +546,9 @@ function aud_play_pause9(){
   if ( myAudio9.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio9.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio9.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn9 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -482,9 +599,9 @@ function aud_play_pause11(){
   if ( myAudio11.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio11.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio11.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn11 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -508,9 +625,9 @@ function aud_play_pause12(){
   if ( myAudio12.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio12.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio12.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn12 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -534,9 +651,9 @@ function aud_play_pause13(){
   if ( myAudio13.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio13.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio13.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn13 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -560,9 +677,9 @@ function aud_play_pause14(){
   if ( myAudio14.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio14.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio14.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn14 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -586,9 +703,9 @@ function aud_play_pause15(){
   if ( myAudio15.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio15.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio15.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn15 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
@@ -612,9 +729,9 @@ function aud_play_pause16(){
   if ( myAudio16.paused ) {
 	  Materialize.toast('Play', 1000, 'rounded')
     myAudio16.play();
-	  Materialize.toast('Pause', 1000, 'rounded')
   } else {
     myAudio16.pause();
+	  Materialize.toast('Pause', 1000, 'rounded')
   }
   $("#playpausebtn16 i").toggleClass("mdi-av-play-arrow mdi-av-pause");
 }
